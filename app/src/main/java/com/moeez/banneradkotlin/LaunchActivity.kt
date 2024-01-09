@@ -12,7 +12,7 @@ class LaunchActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             startActivity()
-        },3000)
+        },5000)
 
     }
 

@@ -19,7 +19,7 @@ import com.moeez.banneradkotlin.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private var binding: ActivityMainBinding? = null
     private lateinit var mContext: Context
-    private var adContainer: FrameLayout? = null
+    private val mContainer: FrameLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -31,11 +31,13 @@ class MainActivity : AppCompatActivity() {
                 .setTestDeviceIds(listOf("place test device id here"))
                 .build())
 
+        initializeBannerAd()
+
     }
 
     private fun initializeBannerAd() {
         MobileAds.initialize(mContext, OnInitializationCompleteListener {
-            Log.e("bannerAdTag", "onInitializationComplete: ")
+            Log.e(TAG, "onInitializationComplete: ")
         })
         val adRequest = AdRequest.Builder().build()
 
@@ -43,41 +45,41 @@ class MainActivity : AppCompatActivity() {
         binding?.bannerAdView?.adListener = object : AdListener() {
             override fun onAdClicked() {
                 super.onAdClicked()
-                Log.e("bannerAdTag", "onAdClicked: ")
+                Log.e(TAG, "onAdClicked: ")
             }
 
             override fun onAdClosed() {
                 super.onAdClosed()
-                Log.e("bannerAdTag", "onAdClosed: ")
+                Log.e(TAG, "onAdClosed: ")
             }
 
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
-                Log.e("bannerAdTag", "onAdFailedToLoad: " + loadAdError.message)
-                adContainer?.visibility = View.GONE
+                Log.e(TAG, "onAdFailedToLoad: " + loadAdError.message)
+                mContainer?.visibility = View.GONE
             }
 
             override fun onAdLoaded() {
                 super.onAdLoaded()
-                Log.e("bannerAdTag", "onAdLoaded: ")
-                adContainer?.visibility = View.VISIBLE
+                Log.e(TAG, "onAdLoaded: ")
+                mContainer?.visibility = View.VISIBLE
             }
 
             override fun onAdOpened() {
                 super.onAdOpened()
-                Log.e("bannerAdTag", "onAdOpened: ")
+                Log.e(TAG, "onAdOpened: ")
             }
 
             override fun onAdImpression() {
                 super.onAdImpression()
-                Log.e("bannerAdTag", "onAdImpression: " )
+                Log.e(TAG, "onAdImpression: " )
             }
         }
 
     }
 
     companion object {
-        private const val TAG = "BANNER_AD"
+        private const val TAG = "BANNER_AD_TAG"
     }
 
 }
